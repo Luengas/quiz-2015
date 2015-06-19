@@ -80,7 +80,7 @@ exports.create = function(req, res) {
 
 // GET /author
 exports.author = function(req, res) {
-   res.render('author', {autor: 'Iñaki Luengas'});
+   res.render('author', {autor: 'Iñaki Luengas',errors: []});
 };
 
 
