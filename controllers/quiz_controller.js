@@ -1,4 +1,6 @@
 var models = require('../models/models.js');
+// Lista de temáticas
+var tematicas = ["Otro", "Humanidades", "Ocio", "Ciencia", "Tecnología"];
 
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
