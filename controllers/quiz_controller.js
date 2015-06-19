@@ -1,6 +1,6 @@
 var models = require('../models/models.js');
 // Lista de temáticas
-var tematicas = ["Otro", "Humanidades", "Ocio", "Ciencia", "Tecnología"];
+var tema = ["Otro", "Humanidades", "Ocio", "Ciencia", "Tecnología"];
 
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
@@ -26,7 +26,7 @@ exports.index = function(req, res) {
   
   models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
-      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+      res.render('quizes/index.ejs', {quizes: quizes, errors: [],tema: tema});
     }
   ).catch(function(error) { next(error);})
 };
@@ -69,7 +69,7 @@ exports.create = function(req, res) {
   .then(
     function(err){
       if (err) {
-        res.render('quizes/new', {quiz: quiz, errors: err.errors});
+        res.render('quizes/new', {quiz: quiz, errors: err.errors, tema: tema});
       } else {
         quiz // save: guarda en DB campos pregunta y respuesta y tema de quiz
         .save({fields: ["pregunta", "respuesta", "tema"]})
@@ -83,7 +83,7 @@ exports.create = function(req, res) {
 exports.edit = function(req, res) {
   var quiz = req.quiz;  // req.quiz: autoload de instancia de quiz
 
-  res.render('quizes/edit', {quiz: quiz, errors: []});
+  res.render('quizes/edit', {quiz: quiz, errors: [], tema: tema});
 };
 
 // PUT /quizes/:id
@@ -97,7 +97,7 @@ exports.update = function(req, res) {
   .then(
     function(err){
       if (err) {
-        res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+        res.render('quizes/edit', {quiz: req.quiz, errors: err.errors, tema: tema});
       } else {
         req.quiz     // save: guarda campos pregunta y respuesta y tema en DB
         .save( {fields: ["pregunta", "respuesta", "tema"]})
