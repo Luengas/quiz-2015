@@ -26,8 +26,7 @@ exports.index = function(req, res) {
   
   models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
-      res.render('quizes/index.ejs', {quizes: quizes, errors: [],
-      tema: tema});
+      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
     }
   ).catch(function(error) { next(error);})
 };
