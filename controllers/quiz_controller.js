@@ -13,14 +13,24 @@ exports.load = function(req, res, next, quizId) {
 };
 
 
+
 // GET /quizes
 exports.index = function(req, res) {
-  models.Quiz.findAll().then(
+	var _patronBusqueda = req.query.search || "";
+	 _patronBusqueda = "%" + _patronBusqueda.replace(/\s/gi, "%") + "%";
+	 // Objeto que modela una pseudo clausula WHERE de SQL
+	var _paramBusqueda = {
+    // El comodin "?" de la expresión de la primera posición
+    // del array se sustituye por el contenido de la segunda posición
+    where: ["pregunta like ?", _patronBusqueda]};
+  
+  models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
     }
-  ).catch(function(error){next(error)});
+  ).catch(function(error) { next(error);})
 };
+
 
 // GET /quizes/:id
 exports.show = function(req, res) {
