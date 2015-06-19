@@ -12,9 +12,10 @@ exports.load = function(req, res, next, quizId) {
   ).catch(function(error){next(error)});
 };
 
+
 // GET /quizes
 exports.index = function(req, res) {
-	var _patronBusqueda = req.query.search || "";
+  var _patronBusqueda = req.query.search || "";
 	 _patronBusqueda = "%" + _patronBusqueda.replace(/\s/gi, "%") + "%";
 	 // Objeto que modela una pseudo clausula WHERE de SQL
 	var _paramBusqueda = {
@@ -24,9 +25,9 @@ exports.index = function(req, res) {
   
   models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
-       res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
     }
-  ).catch(function(error) { next(error);})
+  ).catch(function(error){next(error)});
 };
 
 // GET /quizes/:id
