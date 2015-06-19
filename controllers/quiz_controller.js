@@ -1,4 +1,6 @@
 var models = require('../models/models.js');
+// Lista de temáticas
+var tema = ["Otro", "Humanidades", "Ocio", "Ciencia", "Tecnología"];
 
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
@@ -24,7 +26,8 @@ exports.index = function(req, res) {
   
   models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
-      res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+      res.render('quizes/index.ejs', {quizes: quizes, errors: [],
+      tema: tema});
     }
   ).catch(function(error) { next(error);})
 };
