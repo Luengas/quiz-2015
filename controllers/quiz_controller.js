@@ -20,7 +20,7 @@ exports.index = function(req, res) {
 	var _paramBusqueda = {
     // El comodin "?" de la expresión de la primera posición
     // del array se sustituye por el contenido de la segunda posición
-    where: ["pregunta like ?", _patronBusqueda]};
+    where: ["pregunta like ?", _patronBusqueda], order: 'pregunta DESC'};
   
   models.Quiz.findAll(_paramBusqueda).then(
     function(quizes) {
