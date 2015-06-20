@@ -65,7 +65,8 @@ exports.create = function(req, res) {
 
   if (quiz == null)
 	 res.redirect('/quizes'); 
-  
+  else
+  {
   quiz
   .validate()
   .then(
@@ -79,6 +80,9 @@ exports.create = function(req, res) {
       }      // res.redirect: Redirección HTTP a lista de preguntas
     }
   );
+  
+  }
+  
 };
 
 // GET /quizes/:id/edit
