@@ -63,10 +63,6 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
-  if (quiz.validate() == null)
-	 res.redirect('/quizes'); 
-  else
-  {
   quiz
   .validate()
   .then(
@@ -80,8 +76,6 @@ exports.create = function(req, res) {
       }      // res.redirect: Redirección HTTP a lista de preguntas
     }
   );
-  
-  }
   
 };
 
