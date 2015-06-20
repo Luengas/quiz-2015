@@ -64,7 +64,7 @@ exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
   quiz
-  .validate()
+  //.validate()
   .then(
     function(err){
       if (err) {
