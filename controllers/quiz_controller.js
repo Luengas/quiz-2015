@@ -63,7 +63,7 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
 
-  if (quiz == null)
+  if (quiz.validate() == null)
 	 res.redirect('/quizes'); 
   else
   {
