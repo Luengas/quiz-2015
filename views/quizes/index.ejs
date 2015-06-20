@@ -4,9 +4,13 @@
 	<input type="submit" value="Buscar"/>
   </form>
   <table>
+  <tr>
+	<td> TEMÁTICA </td>
+	<td> PREGUNTA </td>
+  </tr>
   <% var i; for (i=0; i < quizes.length; i++) { %>        
      <tr>
-		<td>Temática (<%= quizes[i].tema %>)</td>
+		<td><%= quizes[i].tema %></td>
 		<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
 		<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
 		<td>
