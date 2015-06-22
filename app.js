@@ -78,4 +78,47 @@ app.use(function(err, req, res, next) {
 });
 
 
+//Autologout
+
+function minutos_transcurridos($fecha_i,$fecha_f)
+{
+$minutos = (strtotime($fecha_i)-strtotime($fecha_f))/60;
+$minutos = abs($minutos); $minutos = floor($minutos);
+return $minutos;
+}
+
+function autoLogout()
+{
+	var f=new Date();
+    req.session.fechaTrans = df.getDate();
+	var minutosTranscurridos = minutos_transcurridos(req.session.fechaTrans - req.session.fechaUltTrans);
+	//Inicializo primera vez
+	if (req.session.fechaTrans == null)
+		req.session.fechaTrans = df.getDate();
+	
+	if (minutosTranscurridos >= 2) //Dos minutos transcurridos
+	{
+		//Autologout
+		req.session.user = "";
+	}
+	else
+	{
+		req.session.fechaUltTrans = req.session.fechaTrans; 
+	}
+}
+
+app.get('/', function(req, res){
+	autoLogout();
+});
+app.post('/', function(req, res){
+	autoLogout();
+});
+app.put('/', function(req, res){
+	autoLogout();
+});
+app.delete('/', function(req, res){
+	autoLogout();
+});
+
+
 module.exports = app;
