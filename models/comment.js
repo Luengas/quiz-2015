@@ -16,10 +16,13 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       countUnpublished: function () {
-        return 10;
+        //Comentario no publicados
+		return this.count({where: {publicado: 'false'}}).on('success', function(count) {
+			return count;
+    })
       },
       countCommentedQuizes: function () {
-        return 20;
+        return 2;  //Preguntas con comentario
       }
     }
   });
