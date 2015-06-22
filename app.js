@@ -46,6 +46,31 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 
+
+//Autologout (módulo 9)
+
+app.use(function(req, res, next){
+
+    if(req.session.user){
+        // Petición autenticada
+        var now = new Date().getTime(),
+            lastInteraction = req.session.lastInteraction;
+
+        if (lastInteraction && (now - lastInteraction) > TIME_LOGOUT){            
+            // Sesión caducada
+            delete req.session.user;
+            res.status(401);
+            res.render('error', { message: "La sesión ha caducado", error: {}, errors: [] });
+        }else{
+            req.session.lastInteraction = new Date().getTime();
+            res.locals.session = req.session;
+        }
+    }    
+
+    next();
+});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -80,28 +105,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-//Autologout
-
-app.use(function(req, res, next){
-
-    if(req.session.user){
-        // Petición autenticada
-        var now = new Date().getTime(),
-            lastInteraction = req.session.lastInteraction;
-
-        if (lastInteraction && (now - lastInteraction) > TIME_LOGOUT){            
-            // Sesión caducada
-            delete req.session.user;
-            res.status(401);
-            res.render('error', { message: "La sesión ha caducado", error: {}, errors: [] });
-        }else{
-            req.session.lastInteraction = new Date().getTime();
-            res.locals.session = req.session;
-        }
-    }    
-
-    next();
-});
 
 
 module.exports = app;
