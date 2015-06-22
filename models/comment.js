@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return this.aggregate(QuizId,sum).then('success',function(count) {
+        return this.aggregate('QuizId','count').then('success',function(count) {
 			return count;
     })
       }
