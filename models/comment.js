@@ -22,7 +22,9 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return 2;  //Preguntas con comentario
+        return this.aggregate(QuizId,sum).then('success',function(count) {
+			return count;
+    })
       }
     }
   });
