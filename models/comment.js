@@ -12,5 +12,15 @@ module.exports = function(sequelize, DataTypes) {
       	defaultValue: false
       }
     }    
-  );
-}
+ ,
+  {
+    classMethods: {
+      countUnpublished: function () {
+        return 10;
+      },
+      countCommentedQuizes: function () {
+        return 20;
+      }
+    }
+  });
+};

@@ -12,7 +12,7 @@ var routes = require('./routes/index');
 
 var app = express();
 
-var TIME_LOGOUT = 10 * 1000;  //Dos minutos
+var TIME_LOGOUT = 120 * 1000;  //Dos minutos (120 segundos)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,8 +50,8 @@ app.use(function(req, res, next){
 
     if(req.session.user){
         // Petición autenticada
-        var now = new Date().getTime(),
-            lastInteraction = req.session.lastInteraction;
+        var now = new Date().getTime();
+        lastInteraction = req.session.lastInteraction;
 
         if (lastInteraction && (now - lastInteraction) > TIME_LOGOUT){            
             // Sesión caducada
