@@ -12,6 +12,8 @@ var routes = require('./routes/index');
 
 var app = express();
 
+var TIME_LOGOUT = 10 * 1000;  //Dos minutos
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -80,44 +82,25 @@ app.use(function(err, req, res, next) {
 
 //Autologout
 
-function minutos_transcurridos($fecha_i,$fecha_f)
-{
-$minutos = (strtotime($fecha_i)-strtotime($fecha_f))/60;
-$minutos = abs($minutos); $minutos = floor($minutos);
-return $minutos;
-}
+app.use(function(req, res, next){
 
-function autoLogout()
-{
-	var f=new Date();
-    req.session.fechaTrans = df.getDate();
-	var minutosTranscurridos = minutos_transcurridos(req.session.fechaTrans - req.session.fechaUltTrans);
-	//Inicializo primera vez
-	if (req.session.fechaTrans == null)
-		req.session.fechaTrans = df.getDate();
-	
-	if (minutosTranscurridos >= 2) //Dos minutos transcurridos
-	{
-		//Autologout
-		req.session.user = "";
-	}
-	else
-	{
-		req.session.fechaUltTrans = req.session.fechaTrans; 
-	}
-}
+    if(req.session.user){
+        // Petición autenticada
+        var now = new Date().getTime(),
+            lastInteraction = req.session.lastInteraction;
 
-app.get('/', function(req, res){
-	autoLogout();
-});
-app.post('/', function(req, res){
-	autoLogout();
-});
-app.put('/', function(req, res){
-	autoLogout();
-});
-app.delete('/', function(req, res){
-	autoLogout();
+        if (lastInteraction && (now - lastInteraction) > TIME_LOGOUT){            
+            // Sesión caducada
+            delete req.session.user;
+            res.status(401);
+            res.render('error', { message: "La sesión ha caducado", error: {}, errors: [] });
+        }else{
+            req.session.lastInteraction = new Date().getTime();
+            res.locals.session = req.session;
+        }
+    }    
+
+    next();
 });
 
 
