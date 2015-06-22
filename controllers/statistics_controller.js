@@ -22,11 +22,10 @@ exports.calculate = function (req, res, next) {
   })
   .then(function (numUnpublished) { // número de comentarios sin publicar
     statistics.commentsUnpublished = numUnpublished;
-    //return models.Comment.countCommentedQuizes();
+    return models.Comment.countCommentedQuizes();
   })
   .then(function (numCommented) { // número de preguntas con comentario
     statistics.commentedQuizes = numCommented;
-	return models.Comment.countCommentedQuizes();
   })
   .catch(function (err) { errors.push(err); })
   .finally(function () {
