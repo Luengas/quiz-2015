@@ -58,7 +58,7 @@ app.use(function(req, res, next){
             //delete req.session.user;
             //res.status(401);
             //res.render('error', { message: "La sesión ha caducado", error: {}, errors: [] });
-			req.redirect('/logout');
+			res.redirect('/logout');
         }else{
             req.session.lastInteraction = new Date().getTime();
             res.locals.session = req.session;
