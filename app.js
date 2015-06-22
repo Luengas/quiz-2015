@@ -55,7 +55,8 @@ app.use(function(req, res, next){
 
         if (lastInteraction && (now - lastInteraction) > TIME_LOGOUT){            
             // Sesión caducada
-            delete req.session.user;
+            //delete req.session.user;
+			req.session = "";
             res.status(401);
             res.render('error', { message: "La sesión ha caducado", error: {}, errors: [] });
         }else{
