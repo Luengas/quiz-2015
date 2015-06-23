@@ -21,8 +21,9 @@ module.exports = function(sequelize, DataTypes) {
 			return count;
     })
       },
+	  //Preguntas con comentario
       countCommentedQuizes: function () {
-        return this.count({where: {publicado: 'true'}}).then('success', function(count) {
+        return this.count({where: {publicado: 'true'}, group: ['QuizId']}).then('success', function(count) {
 			return count;
     })
       }
