@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
         return this.count({ group: ['"QuizId"'] }).then('success',(function(count) {
 		  return count;
 		})
-	  }
+      }
     }
   });
 };
