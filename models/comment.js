@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       },
 	  //Preguntas con comentario
       countCommentedQuizes: function () {
-        return this.count({distinct: 'QuizId'}).then('success', function(count) {
+        return this..count({ distinct: true, include: [{ model: QuizId}] }).then('success', function(count) {
 			return count;
     })
       }
