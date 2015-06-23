@@ -24,8 +24,8 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return models.sequelize.query('SELECT count(*) AS n FROM "Quizzes" WHERE "id" IN (SELECT DISTINCT "QuizId" FROM "Comments")').then('success',function(result){
-               return result[0].n;
+        return this.count({group: 'QuizId'}).then('success', function(count) {
+			return count;
     })
       }
     }
