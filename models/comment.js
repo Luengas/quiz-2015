@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return this.Sequelize.query('SELECT count(*) AS n FROM "Quizzes" WHERE "id" IN (SELECT DISTINCT "QuizId" FROM "Comments")').then('success',function(result){
+        return this.query('SELECT count(*) AS n FROM "Quizzes" WHERE "id" IN (SELECT DISTINCT "QuizId" FROM "Comments")').then('success',function(result){
                return result[0].n;
     })
       }
