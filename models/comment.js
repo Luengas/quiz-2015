@@ -24,10 +24,10 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return this.count({ group: ['"QuizId"'] }).success(function(count) {
+        return this.count({ group: ['"QuizId"'] }).then('success',(function(count) {
 		  return count;
 		})
-      }
+	  }
     }
   });
 };
