@@ -1,5 +1,7 @@
 // Definicion del modelo de Quiz con validación
 
+var models = require('../models/models.js');
+
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
   	'Comment',
