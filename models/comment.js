@@ -1,7 +1,5 @@
 // Definicion del modelo de Quiz con validación
 
-var models = require('../models/models.js');
-
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define(
   	'Comment',
@@ -24,9 +22,9 @@ module.exports = function(sequelize, DataTypes) {
     })
       },
       countCommentedQuizes: function () {
-        return this.count({where: {publicado: 'true'}}).then('success',(function(count) {
-		  return count;
-		})
+        return this.count({where: {publicado: 'true'}}).then('success', function(count) {
+			return count;
+    })
       }
     }
   });
