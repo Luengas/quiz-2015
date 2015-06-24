@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       },
 	  //Preguntas con comentario
       countCommentedQuizes: function () {
-        return this.count( { group : '"QuizId"'}).then(function (count) {
+        return this.aggregate('QuizId', 'count', { distinct: true }).then('success', function(count) {
 			return count;
     })
       }
